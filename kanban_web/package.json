@@ -1,0 +1,48 @@
+{
+  "name": "kanban_web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@antv/g2": "^5.4.8",
+    "@monaco-editor/react": "^4.7.0",
+    "antd": "^6.5.0",
+    "axios": "^1.18.1",
+    "d3-chord": "^3.0.1",
+    "d3-cloud": "^1.2.9",
+    "d3-geo": "^3.1.1",
+    "d3-hierarchy": "^3.1.2",
+    "d3-sankey": "^0.12.3",
+    "hls.js": "^1.7.1",
+    "immer": "^11.1.8",
+    "mpegts.js": "^1.8.2",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-moveable": "^0.56.0",
+    "react-router-dom": "^7.18.1",
+    "three": "^0.185.1",
+    "zundo": "^2.3.0",
+    "zustand": "^5.0.14"
+  },
+  "devDependencies": {
+    "@types/d3-chord": "^3.0.6",
+    "@types/d3-cloud": "^1.2.9",
+    "@types/d3-geo": "^3.1.1",
+    "@types/d3-hierarchy": "^3.1.7",
+    "@types/d3-sankey": "^0.12.5",
+    "@types/node": "^24.13.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@types/three": "^0.185.4",
+    "@vitejs/plugin-react": "^6.0.3",
+    "oxlint": "^1.71.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.1"
+  }
+}

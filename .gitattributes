@@ -1,0 +1,13 @@
+# 文本文件统一 LF（AGENTS.md 编码规范），Windows 批处理必须 CRLF，二进制类型显式标记
+* text=auto eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.xlsx binary
+*.jar binary

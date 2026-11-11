@@ -1,0 +1,213 @@
+{
+  "date": "2026-07-02T16:21:42.699Z",
+  "browser": "Headless Chrome CDP fallback",
+  "services": {},
+  "network": [
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:5173/api/auth/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:5173/api/workspaces",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:5173/api/projects/2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:5173/api/projects/2",
+      "status": 200
+    },
+    {
+      "method": "PUT",
+      "url": "http://127.0.0.1:5173/api/projects/2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:5173/api/projects/2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:5173/api/projects/2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:5173/api/projects/2",
+      "status": 200
+    }
+  ],
+  "consoleErrors": [],
+  "screenshots": [
+    "E:\\kanban_workspace\\ScreenShot\\stage1-m1-workbench.png",
+    "E:\\kanban_workspace\\ScreenShot\\stage1-m1-editor-overview.png",
+    "E:\\kanban_workspace\\ScreenShot\\stage1-m1-editor-saved.png",
+    "E:\\kanban_workspace\\ScreenShot\\stage1-m1-editor-restored.png"
+  ],
+  "checks": {
+    "openFrontend": {
+      "url": "http://127.0.0.1:5173/login",
+      "title": "看板平台",
+      "text": "看板平台\n用户名\n密码\n登 录\n默认账号 admin / admin123"
+    },
+    "loginForm": [
+      {
+        "type": "text",
+        "value": "admin",
+        "placeholder": "用户名"
+      },
+      {
+        "type": "password",
+        "value": "admin123",
+        "placeholder": "密码"
+      }
+    ],
+    "login": {
+      "url": "http://127.0.0.1:5173/",
+      "hasNew": true,
+      "hasWorkspace": true
+    },
+    "workspaceBeforeSelect": {
+      "workspace": null,
+      "buttons": [
+        {
+          "text": "新建看板",
+          "disabled": true
+        }
+      ],
+      "body": "看板平台\n选择工作空间\nP\nPlatform Admin\n看板\n新建看板\n当前工作空间下未创建看板"
+    },
+    "workspaceAfterSelect": {
+      "workspace": "{\"state\":{\"currentId\":1},\"version\":0}",
+      "buttons": [
+        {
+          "text": "新建看板",
+          "disabled": false
+        }
+      ],
+      "body": "看板平台\nDevelopment (dev)\nP\nPlatform Admin\nDevelopment · 看板\n新建看板\n当前工作空间下未创建看板\n1\n2\nDevelopment (dev)\nStaging / Test (test)\nProduction (prod)\n登录成功"
+    },
+    "workbenchButtons": [
+      {
+        "text": "新建看板",
+        "disabled": false
+      }
+    ],
+    "enterEditorMode": "direct-existing-/editor/2",
+    "createUiNote": "工作台无已有编辑按钮；新建看板弹窗输入受控状态未写入，改用已有项目 /editor/2 继续验证编辑器主体闭环",
+    "enterEditor": {
+      "url": "http://127.0.0.1:5173/editor/2",
+      "hasTopbar": true,
+      "hasLeft": true,
+      "hasRight": true
+    },
+    "addComponents": {
+      "count": 10,
+      "layers": [
+        "饼图",
+        "柱状图",
+        "折线图",
+        "折线图",
+        "标题",
+        "标题",
+        "文本",
+        "折线图",
+        "柱状图",
+        "饼图"
+      ],
+      "selected": "饼图",
+      "selectedBorder": true
+    },
+    "drag": {
+      "before": {
+        "x": 464,
+        "y": 264,
+        "w": 120,
+        "h": 28.796875,
+        "transform": "translate(144px, 144px) rotate(0deg)"
+      },
+      "after": {
+        "x": 464,
+        "y": 264,
+        "w": 120,
+        "h": 29,
+        "transform": "translate(144px, 144px) rotate(0deg)"
+      },
+      "moved": false
+    },
+    "textProps": {
+      "hasText": true,
+      "selected": "标题",
+      "selectedTransform": "translate(144px, 144px) rotate(15deg)"
+    },
+    "chartProps": {
+      "hasChartTitle": true,
+      "selected": "折线图",
+      "graphicCount": 26
+    },
+    "canvasProps": {
+      "footer": "画布 1920×1080 · 缩放 50%",
+      "bg": "rgb(17, 24, 39)",
+      "selected": null
+    },
+    "undoRedo": {
+      "undoBefore": "translate(111px, 204px) rotate(0deg)",
+      "undoAfter": "translate(204px, 204px) rotate(0deg)",
+      "redoAfter": "translate(111px, 204px) rotate(0deg)",
+      "undoChanged": true,
+      "redoRestored": true
+    },
+    "save": {
+      "toast": true,
+      "putProject": {
+        "method": "PUT",
+        "url": "http://127.0.0.1:5173/api/projects/2",
+        "status": 200
+      }
+    },
+    "reloadRestore": {
+      "url": "http://127.0.0.1:5173/editor/2",
+      "count": 13,
+      "hasText": true,
+      "footer": "画布 1920×1080 · 缩放 50%",
+      "bg": "rgb(17, 24, 39)",
+      "layers": [
+        "饼图",
+        "柱状图",
+        "折线图",
+        "折线图",
+        "标题",
+        "标题",
+        "文本",
+        "折线图",
+        "柱状图",
+        "饼图",
+        "标题",
+        "折线图",
+        "标题"
+      ]
+    },
+    "jsonb": {
+      "isString": true,
+      "hasVersion": true,
+      "hasCanvas": true,
+      "componentCount": 13
+    },
+    "networkKey": {
+      "login200": true,
+      "workspaces200": true,
+      "create200": false,
+      "save200": true
+    },
+    "consoleNoErrors": true
+  },
+  "failures": [],
+  "note": "In-app MCP browser JS tool is not exposed in this session; used local Chrome CDP to verify real UI."
+}

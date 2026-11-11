@@ -1,0 +1,86 @@
+server:
+  port: 8080
+  host: 0.0.0.0
+
+app:
+  name: kanban-backend
+  version: 0.0.1-SNAPSHOT
+
+logging:
+  level:
+    root: INFO
+    cn.jiebaba.summer: DEBUG
+    cn.kanban: DEBUG
+  console:
+    enabled: true
+  file:
+    enabled: true
+  format:
+    single-line: true
+
+summer:
+  ai:
+    provider: deepseek
+    # 此处仅为兜底默认值；生效配置以「系统设置 → AI 配置」页面（ai_config 表）为准。
+    # 占位 Key 仅为让 ChatModel 完成装配、应用可启动；
+    # 占位/未配置时 AiAssistantService 自动降级为本地规则匹配。
+    api-key: ${SUMMER_AI_API_KEY:}
+    model: deepseek-v4-flash
+    base-url: https://api.deepseek.com/
+    temperature: 0.2
+    timeout-seconds: 60
+    # 本地 ONNX 向量化（BGE-M3，1024 维），资产见 docs：model-assets.md
+    embedding:
+      enabled: true
+      type: onnx
+      onnx:
+        lib-path: ${SUMMER_AI_EMBEDDING_ONNX_LIB_PATH:}
+        model-path: ${SUMMER_AI_EMBEDDING_ONNX_MODEL_PATH:}
+        tokenizer-path: ${SUMMER_AI_EMBEDDING_ONNX_TOKENIZER_PATH:}
+        max-seq-len: 8192
+        pooling: cls
+    # 技能 references 向量库（pgvector，复用下方 Supabase 数据源）
+    vectorstore:
+      type: pgvector
+      table: kanban_skill_vectors
+      dimensions: 1024
+      create-extension: true
+      create-index: true
+  datasource:
+    # 本地 WSL Docker pgvector/pgvector:pg17（Supabase 免费项目被暂停后的替代）
+    url: jdbc:postgresql://localhost:5432/kanban
+    username: postgres
+    password: ${SUMMER_DATASOURCE_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+    pool-size: 8                       # 连接池上限（原 4 偏小，浏览器并发请求即耗尽）
+    minimum-idle: 4                   # 最小空闲，避免冷启动
+    connection-timeout: 30000
+    idle-timeout: 600000
+    max-lifetime: 600000              # 10min，小于 Supabase Pooler 连接生命周期，避免借出过期连接（原 30min）
+    keepalive-time: 120000            # 2min 空闲探活，Supabase Pooler 代理后必需，防止连接被代理回收（原 0 关闭）
+    keepalive-query: SELECT 1
+    leak-detection-threshold: 60000
+
+kanban:
+  jwt:
+    secret: ${KANBAN_JWT_SECRET:}
+    access-ttl-seconds: 900
+    refresh-ttl-seconds: 604800
+  bootstrap:
+    enabled: true
+    admin:
+      username: admin
+      password: ${KANBAN_BOOTSTRAP_ADMIN_PASSWORD:}
+  # AntV 可视化技能包（classpath 根下目录），详见 cn.kanban.skill 包
+  skills:
+    dir: skills/visualization-skills/skills
+    top-k: 5
+  # LADV 智能生成（PRD §4.13）：视觉模型独立于 summer.ai 全局装配，需支持图片输入的模型
+  # （如 GLM-4V / MiniMax-VL / Qwen-VL 等 OpenAI 兼容端点）。
+  # 此处仅为兜底默认值；生效配置以「系统设置 → AI 配置」页面（ai_config 表）为准，api-key 未配置时端点返回明确错误。
+  ladv:
+    base-url: https://api.deepseek.com/
+    api-key: ${KANBAN_LADV_API_KEY:}
+    model: deepseek-vl
+    timeout-seconds: 120
+    max-tokens: 4096

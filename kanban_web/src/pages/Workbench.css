@@ -1,0 +1,64 @@
+.workbench-body {
+  display: flex;
+  align-items: flex-start;
+  min-height: calc(100vh - 56px);
+}
+.workbench-main {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.group-sidebar {
+  width: 236px;
+  flex-shrink: 0;
+  border-right: 1px solid #ececf0;
+  background: #fff;
+  padding: 12px 8px;
+  position: sticky;
+  top: 56px;
+  height: calc(100vh - 56px);
+  overflow: auto;
+}
+.group-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px 8px;
+}
+.group-fixed {
+  color: #444;
+}
+.group-node {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding-right: 4px;
+}
+.group-node-icon {
+  color: #8c8c8c;
+  font-size: 14px;
+}
+.group-node-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.group-node-menu {
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+.group-node:hover .group-node-menu {
+  opacity: 1;
+}
+.card-preview {
+  height: 120px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #bbb;
+  overflow: hidden;
+}

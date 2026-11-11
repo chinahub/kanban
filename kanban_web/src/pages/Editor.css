@@ -1,0 +1,786 @@
+.editor-page {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: auto 1fr 320px;
+  grid-template-rows: 56px 1fr 28px;
+  background: #111827;
+  color: #e5e7eb;
+  overflow: hidden;
+}
+
+.editor-topbar {
+  grid-column: 1 / 4;
+  height: 56px;
+  padding: 0 16px;
+  background: #0b1020;
+  border-bottom: 1px solid #243044;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.editor-right {
+  background: #151d2c;
+  border-left: 1px solid #243044;
+  overflow: auto;
+  padding: 12px;
+}
+
+.editor-leftbar {
+  display: flex;
+  overflow: hidden;
+}
+
+.editor-rail {
+  width: 56px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 8px;
+  background: #0f172a;
+  border-right: 1px solid #243044;
+}
+
+.rail-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 0;
+  border: none;
+  border-left: 2px solid transparent;
+  background: none;
+  color: #94a3b8;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.rail-item .anticon {
+  font-size: 18px;
+}
+
+.rail-item:hover {
+  color: #e2e8f0;
+}
+
+.rail-item.active {
+  color: #4f8cff;
+  border-left-color: #4f8cff;
+  background: rgba(79, 140, 255, 0.12);
+}
+
+.editor-panel {
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  background: #151d2c;
+  border-right: 1px solid #243044;
+  overflow: hidden;
+}
+
+.editor-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #94a3b8;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+/* 右侧 Tab 暗色主题下未选中字色与底色融为一体看不清，调亮文字与 hover */
+.editor-right .ant-tabs-tab {
+  color: #cbd5e1;
+}
+.editor-right .ant-tabs-tab:hover {
+  color: #e2e8f0;
+}
+.editor-right .ant-tabs-tab-active .ant-tabs-tab-btn,
+.editor-right .ant-tabs-tab-btn:active,
+.editor-right .ant-tabs-tab-active {
+  color: #4f8cff !important;
+}
+.editor-right .ant-tabs-ink-bar {
+  background: #4f8cff;
+}
+.editor-right .ant-tabs-nav::before {
+  border-bottom-color: #243044 !important;
+}
+
+.editor-main {
+  overflow: auto;
+  position: relative;
+  background: #0f172a;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 页面管理条（子页面/钻取） */
+.page-bar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: #0b1020;
+  border-bottom: 1px solid #243044;
+  flex-shrink: 0;
+}
+.page-tab {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #94a3b8;
+  cursor: pointer;
+  border: 1px solid transparent;
+  user-select: none;
+}
+.page-tab:hover {
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.06);
+}
+.page-tab.active {
+  color: #4f8cff;
+  border-color: #4f8cff;
+  background: rgba(79, 140, 255, 0.12);
+}
+.page-tab-close {
+  font-size: 10px;
+  color: #64748b;
+}
+.page-tab-close:hover {
+  color: #ff4d4f;
+}
+
+.editor-footer {
+  grid-column: 1 / 4;
+  height: 28px;
+  padding: 0 16px;
+  background: #0b1020;
+  border-top: 1px solid #243044;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+}
+
+.component-list,
+.layer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.component-list {
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.layer-list {
+  gap: 2px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.component-item,
+.layer-item {
+  width: 100%;
+  height: 34px;
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: #dbeafe;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+  padding: 0 10px;
+}
+
+.layer-item {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 6px 0 8px;
+  font-size: 12px;
+  user-select: none;
+}
+
+.layer-type-icon {
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+.layer-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.layer-action {
+  color: #94a3b8;
+  flex-shrink: 0;
+  padding: 2px;
+  border-radius: 2px;
+  display: inline-flex;
+}
+
+.layer-action:hover {
+  color: #dbeafe;
+  background: rgba(79, 140, 255, 0.18);
+}
+
+.layer-item.locked {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.layer-item.hidden .layer-name {
+  opacity: 0.5;
+}
+
+.layer-item.drag-over {
+  border-top: 2px solid #4f8cff;
+}
+
+.layer-rename-input {
+  flex: 1;
+  min-width: 0;
+  height: 22px;
+  font-size: 12px;
+}
+
+.layer-empty {
+  font-size: 12px;
+  padding: 4px 2px;
+}
+
+.component-item:hover,
+.layer-item:hover,
+.layer-item.selected {
+  border-color: #4f8cff;
+  background: #1d2b4a;
+}
+
+.canvas-shell {
+  position: relative;
+  flex: 1;
+  min-width: 100%;
+  padding: 16px;
+}
+
+.canvas-stage-wrap {
+  display: grid;
+  grid-template-columns: 24px auto;
+  grid-template-rows: 24px auto;
+  align-items: start;
+  justify-items: start;
+}
+
+.canvas-ruler-corner {
+  grid-column: 1;
+  grid-row: 1;
+  width: 24px;
+  height: 24px;
+  background: #0b1020;
+  border-right: 1px solid #334155;
+  border-bottom: 1px solid #334155;
+  box-sizing: border-box;
+}
+
+.ruler {
+  cursor: crosshair;
+  z-index: 15;
+  background: #0b1020;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.ruler.horizontal {
+  grid-column: 2;
+  grid-row: 1;
+  border-bottom: 1px solid #334155;
+}
+
+.ruler.vertical {
+  grid-column: 1;
+  grid-row: 2;
+  border-right: 1px solid #334155;
+}
+
+.ruler:hover {
+  filter: brightness(1.4);
+}
+
+.ruler-svg {
+  display: block;
+  pointer-events: none;
+}
+
+.canvas-stage {
+  position: relative;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  /* Antd Drawer/Modal 的 z-index 是 zIndexPopupBase=1000，Moveable 控件自带 z-index=3000。
+     给画布舞台显式设个低于 1000 的层级，让 Antd 弹层天然盖住画布选中边框与 Moveable 控件，
+     避免在抽屉/对话框之上仍能看到突兀的选中框。 */
+  z-index: 999;
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.canvas-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  cursor: move;
+  transform-origin: 0 0;
+  overflow: hidden;
+}
+
+.canvas-layer.selected {
+  border-color: #4f8cff;
+  box-shadow: 0 0 0 1px rgba(79, 140, 255, 0.35);
+}
+
+.prop-form .ant-form-item {
+  margin-bottom: 12px;
+}
+
+.prop-form .ant-form-item .ant-form-item-label > label {
+  color: #dbeafe;
+  font-weight: 500;
+}
+
+.prop-form .ant-form-item .ant-form-item-label > label:hover,
+.prop-form .ant-form-item .ant-form-item-label > label:focus,
+.prop-form .ant-form-item .ant-form-item-label > label:active {
+  color: #f1f5f9;
+}
+
+.placeholder {
+  color: #94a3b8;
+  padding: 16px 0;
+}
+
+.editor-loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* === M1 polish: guides, fps, shortcuts === */
+
+.guide-line {
+  position: absolute;
+  z-index: 50;
+  background: #ff4d4f;
+}
+
+.guide-line.horizontal {
+  left: 0;
+  right: 0;
+  height: 1px;
+  cursor: ns-resize;
+}
+
+.guide-line.vertical {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  cursor: ew-resize;
+}
+
+.guide-line:hover {
+  background: #ff7875;
+  box-shadow: 0 0 4px rgba(255, 77, 79, 0.6);
+}
+
+.guide-line.preview {
+  background: #4f8cff;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.guide-label {
+  position: absolute;
+  font-size: 10px;
+  line-height: 14px;
+  color: #fff;
+  background: #ff4d4f;
+  padding: 0 4px;
+  border-radius: 2px;
+  white-space: nowrap;
+  pointer-events: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.guide-line.horizontal .guide-label {
+  left: 0;
+  top: -15px;
+}
+
+.guide-line.vertical .guide-label {
+  top: 0;
+  left: 3px;
+}
+
+.fps-counter {
+  margin-left: auto;
+  padding-left: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.shortcut-hint {
+  color: #64748b;
+  font-size: 11px;
+  margin-top: 8px;
+  line-height: 1.6;
+  flex-shrink: 0;
+}
+
+.kbd {
+  display: inline-block;
+  min-width: 16px;
+  padding: 0 4px;
+  margin: 0 2px;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 3px;
+  text-align: center;
+  font-size: 10px;
+  color: #94a3b8;
+}
+
+.batch-add-btn {
+  margin-top: 8px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.history-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+/* antd 默认主题为浅色，按钮在深色面板上文字看不清，覆盖为深底配色 */
+.history-actions .ant-btn {
+  background: #1e293b;
+  border-color: #334155;
+  color: #dbeafe;
+}
+
+.history-actions .ant-btn:hover:not(:disabled) {
+  border-color: #4f8cff;
+  color: #4f8cff;
+}
+
+.history-actions .ant-btn:disabled {
+  background: #161f30;
+  border-color: #243044;
+  color: #64748b;
+}
+
+.history-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.history-item {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: #dbeafe;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  text-align: left;
+}
+
+.history-item:hover {
+  border-color: #4f8cff;
+}
+
+.history-item.current {
+  border-color: #4f8cff;
+  background: #1d2b4a;
+  cursor: default;
+}
+
+.history-item.future {
+  opacity: 0.55;
+}
+
+.history-empty {
+  font-size: 12px;
+  padding: 4px 2px;
+}
+
+/* ===== 组件库面板（DataV 风格：分类栏 + 子分类列 + 卡片网格） ===== */
+
+/* 组件库面板加宽，容纳 分类栏/子分类列/卡片网格 三列 */
+.editor-panel.wide {
+  width: 348px;
+}
+
+.clp {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.clp-search {
+  flex-shrink: 0;
+}
+
+.clp-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 8px;
+}
+
+.clp-cats {
+  width: 48px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow-y: auto;
+  border-right: 1px solid #243044;
+  padding-right: 6px;
+}
+
+.clp-cat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 0 6px;
+  border: none;
+  border-radius: 4px;
+  background: none;
+  color: #94a3b8;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.clp-cat-icon {
+  font-size: 17px;
+}
+
+.clp-cat:hover {
+  color: #e2e8f0;
+  background: #1e293b;
+}
+
+.clp-cat.active {
+  color: #4f8cff;
+  background: rgba(79, 140, 255, 0.12);
+}
+
+.clp-subs {
+  width: 76px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow-y: auto;
+  border-right: 1px solid #243044;
+  padding-right: 6px;
+}
+
+.clp-sub {
+  padding: 7px 8px;
+  border: none;
+  border-radius: 4px;
+  background: none;
+  color: #94a3b8;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.clp-sub:hover {
+  color: #e2e8f0;
+  background: #1e293b;
+}
+
+.clp-sub.active {
+  color: #4f8cff;
+  background: rgba(79, 140, 255, 0.12);
+}
+
+.clp-grid {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.clp-card {
+  position: relative;
+  width: 100%;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  background: #1e293b;
+  padding: 8px 8px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.clp-card:hover {
+  border-color: #4f8cff;
+  background: #1d2b4a;
+}
+
+.clp-card.disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.clp-card.disabled:hover {
+  border-color: #334155;
+  background: #1e293b;
+}
+
+.clp-thumb {
+  height: 72px;
+  border-radius: 4px;
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4f8cff;
+  overflow: hidden;
+}
+
+.clp-thumb svg {
+  width: 80%;
+  height: 80%;
+}
+
+.clp-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.clp-thumb-icon {
+  font-size: 30px;
+}
+
+.clp-label {
+  color: #dbeafe;
+  font-size: 12px;
+  text-align: center;
+}
+
+.clp-trail {
+  color: #64748b;
+  font-size: 11px;
+  text-align: center;
+  margin-top: -4px;
+}
+
+.clp-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  padding: 0 6px;
+  border-radius: 3px;
+  background: rgba(100, 116, 139, 0.35);
+  color: #cbd5e1;
+  font-size: 10px;
+  line-height: 18px;
+}
+
+.clp-empty {
+  color: #64748b;
+  font-size: 12px;
+  text-align: center;
+  padding: 24px 0;
+}
+
+/* ===== 移动端编辑器形态（PRD §4.3）：窄屏隐藏右栏与内联面板，组件库/属性走底部抽屉 ===== */
+
+.editor-page.mobile {
+  grid-template-columns: auto 1fr;
+}
+
+/* 栏数从 3 变 2 后，通栏行改用负索引跨越，避免产生隐式第三列 */
+.editor-page.mobile .editor-topbar,
+.editor-page.mobile .editor-footer {
+  grid-column: 1 / -1;
+}
+
+/* 窄屏顶栏收窄：隐藏看板名与协作者标签，保证 返回/预览/发布/保存 全部可见 */
+.editor-page.mobile .editor-topbar-title,
+.editor-page.mobile .editor-topbar-peers {
+  display: none;
+}
+
+.editor-page.mobile .editor-topbar {
+  padding: 0 8px;
+}
+
+.editor-mobile-drawer .ant-drawer-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+/* 触控优化：粗指针设备放大 Moveable 把手（默认 14px 偏小不易点中），
+   画布设 touch-action: none 防止单指拖拽被浏览器滚动/缩放手势劫持 */
+@media (pointer: coarse) {
+  .moveable-control {
+    width: 20px !important;
+    height: 20px !important;
+    margin: -10px 0 0 -10px !important;
+  }
+
+  .canvas-stage,
+  .canvas-layer {
+    touch-action: none;
+  }
+}
